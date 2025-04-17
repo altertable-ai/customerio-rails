@@ -31,9 +31,8 @@ describe "CustomerioRails" do
 
   it "should work with multipart messages" do
     allow(api_client).to receive(:send_email) do |message|
-      expect(message.message[:body].parts.size).to eq(2)
-      expect(message.message[:body].parts[0].body.to_s.strip).to eq("hello")
-      expect(message.message[:body].parts[1].body.to_s.strip).to eq("<b>hello</b>")
+      expect(message.message[:body].strip).to eq("<b>hello</b>")
+      expect(message.message[:body_plain].strip).to eq("hello")
     end
     deliver(TestMailer.multipart_message)
   end

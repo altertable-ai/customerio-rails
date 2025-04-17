@@ -13,14 +13,14 @@ module CustomerioRails
       end
   
       def deliver!(mail)
-        Array.wrap(mail.to).each do |to|
+        (Array.wrap(mail.to) + Array.wrap(mail.cc)).compact.each do |to|
           request = ::Customerio::SendEmailRequest.new({
             to: to,
             from: Array.wrap(mail.from).first,
             subject: mail.subject,
-            body: mail.body,
+            body: mail.html_part&.body&.to_s || mail.body.to_s,
+            body_plain: mail.text_part&.body&.to_s,
             reply_to: mail.reply_to,
-            cc: mail.cc,
             bcc: mail.bcc,
             headers: mail.headers,
             identifiers: { email: to } 
