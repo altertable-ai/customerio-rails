@@ -1,0 +1,4 @@
+= Changelog
+
+== 0.1.0
+* Initial release, inspired by https://github.com/ActiveCampaign/postmark-rails
