@@ -11,7 +11,7 @@ describe 'Delivering messages with customerio-rails' do
     allow(response).to receive(:body).and_return('{}')
     mocked_http = double('mocked_http')
     allow(mocked_http).to receive(:request).with(satisfy { |request|
-      expect(JSON.parse(request.body)).to match(expected_body)
+      expect(Array.wrap(expected_body)).to include(JSON.parse(request.body))
     }).and_return(response)
     allow_any_instance_of(Net::HTTP).to receive(:start).and_yield(mocked_http)
   end
@@ -38,12 +38,34 @@ describe 'Delivering messages with customerio-rails' do
         message.deliver!
       end
     end
+
+    context 'with a bcc address' do
+      let(:expected_body) do
+        super().merge('bcc' => ['raj@bigbangtheory.com'])
+      end
+      
+      it do
+        message.bcc = 'raj@bigbangtheory.com'
+        message.deliver!
+      end
+    end
+
+    context 'with a cc address' do
+      let(:expected_body) do
+        [super(), super().merge('to' => 'raj@bigbangtheory.com', 'identifiers' => { 'email' => 'raj@bigbangtheory.com' })]
+      end
+      
+      it do
+        message.cc = 'raj@bigbangtheory.com'
+        message.deliver!
+      end
+    end
   end
 
   context 'when delivering a multipart message' do
     let(:expected_body) do
       { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com',
-        'subject' => 'Your invitation to join Mixlr.', 'body' => '', 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
+        'subject' => 'Your invitation to join Mixlr.', 'body' => "<b>hello</b>\n", "body_plain" => "hello\n", 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
     end
 
     it do
@@ -55,7 +77,7 @@ describe 'Delivering messages with customerio-rails' do
   context 'when delivering a message with attachments' do
     let(:expected_body) do
       { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com',
-        'subject' => 'Message with attachment.', 'body' => '', 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => { 'empty.gif' => 'R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==' } }
+        'subject' => 'Message with attachment.', 'body' => 'attachments?', 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => { 'empty.gif' => 'R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==' } }
     end
 
     it do
@@ -65,13 +87,14 @@ describe 'Delivering messages with customerio-rails' do
   end
 
   context 'when delivering a message with inline image' do
+    let(:message) { TestMailer.message_with_inline_image }
+
     let(:expected_body) do
       { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com',
-        'subject' => 'Message with inline image.', 'body' => '', 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => { 'empty.gif' => 'R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==' } }
+        'subject' => 'Message with inline image.', 'body' => message.html_part.body.to_s, 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => { 'empty.gif' => 'R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==' } }
     end
 
     it do
-      message = TestMailer.message_with_inline_image
       message.deliver!
     end
   end
