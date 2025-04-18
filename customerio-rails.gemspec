@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name = %q{customerio-rails}
   s.version = CustomerioRails::VERSION
   s.authors = ["Sylvain Utard"]
-  s.description = %q{Drop-in plug-in for ActionMailer to send emails via Customer.io}
+  s.description = %q{Drop-in ActionMailer adapter to send emails via Customer.io}
   s.homepage = %q{https://github.com/altertable-ai/customerio-rails}
   s.summary = %q{Customer.io adapter for ActionMailer}
 

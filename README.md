@@ -3,19 +3,23 @@
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://www.opensource.org/licenses/MIT)
 [![Gem Version](https://badge.fury.io/rb/customerio-rails.svg)](https://badge.fury.io/rb/customerio-rails)
 
-The Customer.io Rails Gem is a drop-in plug-in for ActionMailer to send emails via [Customer.io](https://customer.io).
+The `customerio-rails` gem is a drop-in ActionMailer adapter to send emails via [Customer.io](https://customer.io).
 The gem has been created for fast implementation and targets Customer.io’s transactional email capabilities.
 
 ## Usage
 
 ## Requirements
 
-You will need a Customer.io account set up to use it.
+You will need a [Customer.io](https://customer.io/) account set up to use it.
 
 ### Supported Rails Versions
 
 - Rails 8.0
 - Rails 7.0
+
+### App API Key
+
+Generate an **App API Key** (this is different than the pair _Site ID_ / _API Key_) from your _Workspace Settings_ > Your Workspace > _Manage API Credentials_ > _App API Keys_.
 
 ## Installation
 
