@@ -8,6 +8,7 @@ module CustomerioRails
   module WithTemplatedMessageMailer
     def mail(*args, **kwargs)
       if kwargs[:transactional_message_id].present?
+        # force a blank body to avoid looking for a template locally
         kwargs[:body] = ''
       end
       super
