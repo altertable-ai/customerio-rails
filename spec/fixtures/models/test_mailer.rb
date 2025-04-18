@@ -7,6 +7,10 @@ class TestMailer < ActionMailer::Base
     mail
   end
 
+  def simple_message_with_nice_from
+    mail(from: 'Leonard Hofstadter <leonard@bigbangtheory.com>', body: 'hello')
+  end
+
   def multipart_message
     mail(subject: "Your invitation to join Mixlr.") do |format|
       format.text
