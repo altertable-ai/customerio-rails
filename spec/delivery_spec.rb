@@ -62,6 +62,18 @@ describe 'Delivering messages with customerio-rails' do
     end
   end
 
+  context 'when delivering with a nice from address' do
+    let(:expected_body) do
+      {"to" => "sheldon@bigbangtheory.com", "from" => "Leonard Hofstadter <leonard@bigbangtheory.com>",
+        "subject" => "hello", "headers" => {}, "identifiers" => {"email" => "sheldon@bigbangtheory.com"}, "body" => "hello", "attachments" => {}}
+    end
+
+    it do
+      message = TestMailer.simple_message_with_nice_from
+      message.deliver!
+    end
+  end
+
   context 'when delivering a multipart message' do
     let(:expected_body) do
       { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com',

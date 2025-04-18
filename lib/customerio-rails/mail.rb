@@ -16,7 +16,7 @@ module CustomerioRails
         (Array.wrap(mail.to) + Array.wrap(mail.cc)).compact.each do |to|
           params = {
             to: to,
-            from: Array.wrap(mail.from).first,
+            from: Array.wrap(mail[:from]).first.unparsed_value,
             subject: mail.subject,
             reply_to: mail.reply_to,
             bcc: mail.bcc,
