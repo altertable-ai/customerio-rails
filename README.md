@@ -32,6 +32,28 @@ config.action_mailer.delivery_method = :customerio
 config.action_mailer.customerio_settings = { app_api_key: '<Your APP API Key>', region: Customerio::Regions::US }
 ```
 
+## Usage
+
+Use it as you would usually:
+
+```ruby
+class MyMailer < ApplicationMailer
+  def whatever # whatever.{html,text}.erb will be used as body
+    mail to: 'someone@somewhere.com', subject: 'Hello from Rails!'
+  end
+end
+```
+
+Or rely on Customer.io's templated messages with:
+
+```ruby
+class MyMailer < ApplicationMailer
+  def whatever_with_template
+    mail to: 'someone@somewhere.com', subject: 'Hello from Rails!', transactional_message_id: 3, message_data: { myvar: 'a value', another_one: 42x }
+  end
+end
+```
+
 ## License
 
 The Customer.io Rails gem is licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) license.

@@ -14,17 +14,23 @@ module CustomerioRails
   
       def deliver!(mail)
         (Array.wrap(mail.to) + Array.wrap(mail.cc)).compact.each do |to|
-          request = ::Customerio::SendEmailRequest.new({
+          params = {
             to: to,
             from: Array.wrap(mail.from).first,
             subject: mail.subject,
-            body: mail.html_part&.body&.to_s || mail.body.to_s,
-            body_plain: mail.text_part&.body&.to_s,
             reply_to: mail.reply_to,
             bcc: mail.bcc,
             headers: mail.headers,
             identifiers: { email: to } 
-          }.compact)
+          }
+          if mail[:transactional_message_id]
+            params[:transactional_message_id] = mail[:transactional_message_id].unparsed_value
+            params[:message_data] = mail[:message_data]&.unparsed_value || {}
+          else
+            params[:body] = mail.html_part&.body&.to_s || mail.body.to_s
+            params[:body_plain] = mail.text_part&.body&.to_s
+          end
+          request = ::Customerio::SendEmailRequest.new(params.compact)
           mail.attachments.each do |attachment|
             request.attach(attachment.filename, attachment.read)
           end
