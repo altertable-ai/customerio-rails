@@ -98,4 +98,17 @@ describe 'Delivering messages with customerio-rails' do
       message.deliver!
     end
   end
+
+  context 'when delivering a message with templated message' do
+    let(:message) { TestMailer.message_with_template }
+
+    let(:expected_body) do
+      { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com', 'message_data' => { 'foo' => 'bar' },
+        'subject' => 'Message with template.', 'transactional_message_id' => '123', 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
+    end
+
+    it do
+      message.deliver!
+    end
+  end
 end
