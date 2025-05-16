@@ -27,8 +27,9 @@ module CustomerioRails
             params[:transactional_message_id] = mail[:transactional_message_id].unparsed_value
             params[:message_data] = mail[:message_data]&.unparsed_value || {}
           else
-            params[:body] = mail.html_part&.body&.to_s || mail.body.to_s
-            params[:body_plain] = mail.text_part&.body&.to_s
+            params[:body] = mail.html_part.body.to_s if mail.html_part
+            params[:body_plain] = mail.text_part.body.to_s if mail.text_part
+            params[mail.text? ? :body_plain : :body] = mail.body.to_s if !mail.html_part && !mail.text_part
           end
           request = ::Customerio::SendEmailRequest.new(params.compact)
           mail.attachments.each do |attachment|

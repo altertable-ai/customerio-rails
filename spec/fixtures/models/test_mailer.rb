@@ -18,6 +18,10 @@ class TestMailer < ActionMailer::Base
     end
   end
 
+  def singlepart_message
+    mail(subject: "Your invitation to join Mixlr.")
+  end
+
   def message_with_attachment
     attachments['empty.gif'] = File.read(image_file)
     mail(subject: "Message with attachment.")
