@@ -135,4 +135,31 @@ describe 'Delivering messages with customerio-rails' do
       message.deliver!
     end
   end
+
+  context 'when delivering a message without tracking' do
+    let(:message) { TestMailer.message_without_tracked }
+
+    let(:expected_body) do
+      { "to" => "sheldon@bigbangtheory.com", "from" => "leonard@bigbangtheory.com", "subject" => "Message without tracking.", "headers" => {},
+        "identifiers" => {"email" => "sheldon@bigbangtheory.com"}, "tracked" => false, "body" => "", "body_plain" => "whatever", "attachments" => {} }
+    end
+
+    it do
+      message.deliver!
+    end
+  end
+
+
+  context 'when delivering a message with tracking' do
+    let(:message) { TestMailer.message_with_tracked }
+
+    let(:expected_body) do
+      { "to" => "sheldon@bigbangtheory.com", "from" => "leonard@bigbangtheory.com", "subject" => "Message without tracking.", "headers" => {},
+        "identifiers" => {"email" => "sheldon@bigbangtheory.com"}, "tracked" => true, "body" => "", "body_plain" => "whatever", "attachments" => {} }
+    end
+
+    it do
+      message.deliver!
+    end
+  end
 end

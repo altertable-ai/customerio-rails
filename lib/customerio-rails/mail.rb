@@ -21,8 +21,9 @@ module CustomerioRails
             reply_to: mail.reply_to,
             bcc: mail.bcc,
             headers: mail.headers,
-            identifiers: { email: to } 
+            identifiers: { email: to }
           }
+          params[:tracked] = mail[:tracked].unparsed_value == true unless mail[:tracked].nil?
           if mail[:transactional_message_id]
             params[:transactional_message_id] = mail[:transactional_message_id].unparsed_value
             params[:message_data] = mail[:message_data]&.unparsed_value || {}
