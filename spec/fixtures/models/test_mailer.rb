@@ -41,6 +41,14 @@ class TestMailer < ActionMailer::Base
     mail(subject: 'Message with template.', transactional_message_id: '123', message_data: { foo: 'bar' })
   end
 
+  def message_with_tracked
+    mail(subject: 'Message without tracking.', tracked: true, body: 'whatever')
+  end
+
+  def message_without_tracked
+    mail(subject: 'Message without tracking.', tracked: false, body: 'whatever')
+  end
+
   protected
 
   def image_file
