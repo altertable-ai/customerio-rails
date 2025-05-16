@@ -29,7 +29,14 @@ module CustomerioRails
           else
             params[:body] = mail.html_part.body.to_s if mail.html_part
             params[:body_plain] = mail.text_part.body.to_s if mail.text_part
-            params[mail.text? ? :body_plain : :body] = mail.body.to_s if !mail.html_part && !mail.text_part
+            if params[:body].blank?
+              if mail.text?
+                params[:body] = ''
+                params[:body_plain] = mail.body.to_s if params[:body_plain].blank?
+              else
+                params[:body] = mail.body.to_s
+              end
+            end
           end
           request = ::Customerio::SendEmailRequest.new(params.compact)
           mail.attachments.each do |attachment|

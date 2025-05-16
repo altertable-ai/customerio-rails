@@ -19,7 +19,7 @@ describe 'Delivering messages with customerio-rails' do
   context 'when delivering a simple message' do
     let(:expected_body) do
       { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com', 'subject' => 'hello',
-        'body_plain' => "hello\n", 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
+        'body' => '', 'body_plain' => "hello\n", 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
     end
 
     let(:message) { TestMailer.simple_message }
@@ -65,7 +65,7 @@ describe 'Delivering messages with customerio-rails' do
   context 'when delivering with a nice from address' do
     let(:expected_body) do
       {"to" => "sheldon@bigbangtheory.com", "from" => "Leonard Hofstadter <leonard@bigbangtheory.com>",
-        "subject" => "hello", "headers" => {}, "identifiers" => {"email" => "sheldon@bigbangtheory.com"}, "body_plain" => "hello", "attachments" => {}}
+        "subject" => "hello", "headers" => {}, "identifiers" => {"email" => "sheldon@bigbangtheory.com"}, "body" => "", "body_plain" => "hello", "attachments" => {}}
     end
 
     it do
@@ -89,7 +89,7 @@ describe 'Delivering messages with customerio-rails' do
   context 'when delivering a single part message' do
     let(:expected_body) do
       { 'to' => 'sheldon@bigbangtheory.com', 'from' => 'leonard@bigbangtheory.com',
-        'subject' => 'Your invitation to join Mixlr.', "body_plain" => "hello\n", 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
+        'subject' => 'Your invitation to join Mixlr.', "body" => "", "body_plain" => "hello\n", 'headers' => {}, 'identifiers' => { 'email' => 'sheldon@bigbangtheory.com' }, 'attachments' => {} }
     end
 
     it do
