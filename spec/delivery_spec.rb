@@ -30,11 +30,22 @@ describe 'Delivering messages with customerio-rails' do
 
     context 'with a reply-to address' do
       let(:expected_body) do
-        super().merge('reply_to' => ['raj@bigbangtheory.com'])
+        super().merge('reply_to' => 'raj@bigbangtheory.com')
       end
 
       it do
         message.reply_to = 'raj@bigbangtheory.com'
+        message.deliver!
+      end
+    end
+
+    context 'with multiple reply-to addresses' do
+      let(:expected_body) do
+        super().merge('reply_to' => 'raj@bigbangtheory.com,raj2@bigbangtheory.com')
+      end
+
+      it do
+        message.reply_to = ['raj@bigbangtheory.com', 'raj2@bigbangtheory.com']
         message.deliver!
       end
     end

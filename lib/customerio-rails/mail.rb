@@ -18,7 +18,7 @@ module CustomerioRails
             to: to,
             from: Array.wrap(mail[:from]).first.unparsed_value,
             subject: mail.subject,
-            reply_to: mail.reply_to,
+            reply_to: mail.reply_to&.join(','),
             bcc: mail.bcc,
             headers: mail.headers,
             identifiers: { email: to }
