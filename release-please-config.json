@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "release-type": "ruby",
+      "package-name": "customerio-rails",
+      "version-file": "lib/customerio-rails/version.rb",
+      "changelog-path": "CHANGELOG.rdoc",
+      "include-component-in-tag": false,
+      "bump-minor-pre-major": true
+    }
+  }
+}

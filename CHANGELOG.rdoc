@@ -1,4 +1,20 @@
 = Changelog
 
+== 0.3.1
+* Fix reply_to handling; the Customer.io API expects a string (#7)
+
+== 0.3.0
+* Support a +tracked+ option so the client can decide whether an email is tracked (#6)
+
+== 0.2.2
+* Always configure a body, including an empty body for templated messages (#5)
+
+== 0.2.1
+* Fix single-part messages writing to +body+ instead of +body_plain+ (#4)
+
+== 0.2.0
+* Support Customer.io message templates via +transactional_message_id+ (#2)
+* Keep formatted From headers (#3)
+
 == 0.1.0
 * Initial release, inspired by https://github.com/ActiveCampaign/postmark-rails
