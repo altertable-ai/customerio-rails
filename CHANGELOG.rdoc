@@ -1,3 +1,12 @@
+# Changelog
+
+## [0.4.0](https://github.com/altertable-ai/customerio-rails/compare/v0.3.1...v0.4.0) (2026-08-28)
+
+
+### Miscellaneous Chores
+
+* release 0.4.0 ([6430693](https://github.com/altertable-ai/customerio-rails/commit/6430693979ae44bb4b14a9de11e2d9b3ea4f8394))
+
 = Changelog
 
 == 0.3.1
