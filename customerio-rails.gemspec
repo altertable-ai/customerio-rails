@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.authors = ["Sylvain Utard"]
   s.description = %q{Drop-in ActionMailer adapter to send emails via Customer.io}
   s.homepage = %q{https://github.com/altertable-ai/customerio-rails}
+  s.license = "MIT"
   s.summary = %q{Customer.io adapter for ActionMailer}
 
   s.extra_rdoc_files = [
@@ -18,7 +19,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
 
   s.add_dependency('actionmailer', ">= 7.0.0")
-  s.add_dependency('customerio', '>= 5.3.0')
+  s.add_dependency('customerio', '>= 6.2.0')
 
   s.add_development_dependency("rake")
 
